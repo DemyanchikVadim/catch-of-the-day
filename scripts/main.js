@@ -11,6 +11,11 @@ var createBrowserHistory =  require("history/lib/createBrowserHistory");
 
 var h = require('./helpers');
 
+/*
+    App
+ */
+
+
 var App = React.createClass({
     render : function () {
         return (
@@ -24,6 +29,30 @@ var App = React.createClass({
 
         )
 
+    }
+});
+
+/*
+    Add fish form
+    <AddFishForm />
+ */
+
+var AddFishForm = React.createClass({
+    
+    render: function () {
+        return (
+            <form className="fish-edit" ref="fishForm" onSubmit={this.createFish}>
+                <input type="text" ref="name" placeholder="Fish Name"/>
+                <input type="text" ref="price" placeholder="Fish Price" />
+                <select ref="status">
+                    <option value="available">Fresh!</option>
+                    <option value="unavailable">Sold Out!</option>
+                </select>
+                <textarea type="text" ref="desc" placeholder="Desc"></textarea>
+                <input type="text" ref="image" placeholder="URL to Image" />
+                <button type="submit">+ Add Item </button>
+            </form>
+        )
     }
 });
 
@@ -50,7 +79,12 @@ var Order = React.createClass({
 });
 var Inventory = React.createClass({
     render : function () {
-        return (<p1>Inventory</p1>)
+        return (
+            <div>
+        <h2>Inventory</h2>
+        <AddFishForm />
+            </div>
+        )
     }
 });
 
@@ -76,7 +110,7 @@ var StorePicker = React.createClass({
 });
 
 /*
-Not found
+    Not found
 */
 
 var NotFound = React.createClass({
@@ -86,7 +120,7 @@ var NotFound = React.createClass({
 });
 
 /*
-Routes
+    Routes
  */
 
 var routes = (
