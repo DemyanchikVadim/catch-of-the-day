@@ -9,16 +9,14 @@ var Navigation = ReactRouter.Navigation;
 var History = ReactRouter.History;
 var createBrowserHistory =  require("history/lib/createBrowserHistory");
 
+var Catalyst = require('react-catalyst');
+
 var h = require('./helpers');
 var Rebase = require('re-base');
 var base = Rebase.createClass('catch-of-the-day-4dd84.firebaseio.com');
 
-/*
-    App
- */
-
-
 var App = React.createClass({
+    mixins: [Catalyst.LinkedStateMixin],
     getInitialState : function () {
         return  {
             fishes : {},
@@ -75,19 +73,14 @@ var App = React.createClass({
                         </ul>
                     </div>
                     <Order fishes={this.state.fishes} order={this.state.order}/>
-                    <Inventory addFish={this.addFish} loadSamples={this.loadSamples}/>
+                    <Inventory addFish={this.addFish} loadSamples={this.loadSamples}
+                    fishes={this.state.fishes} linkState={this.linkState}/>
                 </div>
 
         )
 
     }
 });
-
-/*
-    Fish
-    <Fish />
-
-*/
 
 var Fish = React.createClass({
     onButtonClick: function () {
@@ -113,11 +106,6 @@ var Fish = React.createClass({
         )
     }
 });
-
-/*
-    Add fish form
-    <AddFishForm />
-*/
 
 var AddFishForm = React.createClass({
     createFish: function (event) {
@@ -214,10 +202,28 @@ var Order = React.createClass({
 });
 
 var Inventory = React.createClass({
+    renderInventory: function (key) {
+        var linkState = this.props.linkState;
+        return (
+            <div className="fish-edit" key={key}>
+                <input type="text" valueLink={this.props.linkState('fishes.'+ key +'.name')}/>
+                <input type="text" valueLink={this.props.linkState('fishes.'+ key +'.price')}/>
+                <select valueLink={linkState('fishes.'+ key +'.status')}>
+                    <option value="unavailable">Sold out!</option>
+                    <option value="available">Fresh!</option>
+                </select>
+                <textarea valueLink={linkState('fishes.'+ key +'.desc')}></textarea>
+                <input valueLink={linkState('fishes.'+ key +'.image')}/>
+            </div>
+        )
+
+    },
+
     render : function () {
         return (
             <div>
                 <h2>Inventory</h2>
+                {Object.keys(this.props.fishes).map(this.renderInventory)}
                 <AddFishForm {...this.props}/>
                 <button onClick={this.props.loadSamples}>Load Sample Fishes</button>
             </div>
@@ -246,19 +252,11 @@ var StorePicker = React.createClass({
     }
 });
 
-/*
-    Not found
-*/
-
 var NotFound = React.createClass({
     render: function () {
         return <h1>Page not found</h1>
     }
 });
-
-/*
-    Routes
-*/
 
 var routes = (
     <Router history={createBrowserHistory()}>
@@ -267,7 +265,5 @@ var routes = (
         <Route path="*" component={NotFound}  />
     </Router>
 );
-
-
 
 React.render(routes, document.querySelector('#main'));
