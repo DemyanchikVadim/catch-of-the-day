@@ -28,10 +28,18 @@ var App = React.createClass({
 
     componentDidMount: function () {
         base.syncState(this.props.params.storeId + '/fishes', {context:this, state: 'fishes'});
+
+        var localStorageRef = localStorage.getItem('order-' + this.props.params.storeId);
+
+        if(localStorageRef){
+            this.setState({
+                order : JSON.parse(localStorageRef)
+            });
+        }
     },
 
-    componentWillMount: function (nextProps, nextState) {
-
+    componentWillUpdate: function (nextProps, nextState) {
+        localStorage.setItem('order-' + this.props.params.storeId, JSON.stringify(nextState.order));
 
     },
 
@@ -168,7 +176,7 @@ var Order = React.createClass({
             return <li key={key}>Sorry, fish no longer available</li>
         }
         return (
-            <li>
+            <li key={key}>
                 {count}
                 {fish.name}
                 <span className="price">{h.formatPrice(count * fish.price)}</span>
@@ -204,6 +212,7 @@ var Order = React.createClass({
         )
     }
 });
+
 var Inventory = React.createClass({
     render : function () {
         return (
