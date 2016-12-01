@@ -1,13 +1,14 @@
-var React =  require("react");
-var ReactDOM = require("react-dom");
+var React =  require('react');
+var ReactDOM = require('react-dom');
+var CSSTransitionGroup = require('react-addons-css-transition-group');
 
-var ReactRouter = require("react-router");
+var ReactRouter = require('react-router');
 var Router = ReactRouter.Router;
 var Route = ReactRouter.Route;
 var Navigation = ReactRouter.Navigation;
 
 var History = ReactRouter.History;
-var createBrowserHistory =  require("history/lib/createBrowserHistory");
+var createBrowserHistory =  require('history/lib/createBrowserHistory');
 
 var Catalyst = require('react-catalyst');
 
@@ -183,8 +184,12 @@ var Order = React.createClass({
         }
         return (
             <li key={key}>
-                {count}
-                {fish.name}
+                <CSSTransitionGroup componen="span" transitionName="count" transitionLeaveTimeout={250} transitionEnterTimeout={250}>
+                    <span key={count}>{count}</span>
+                </CSSTransitionGroup>
+
+
+                {fish.name}{<removeButton></removeButton>}
                 <span className="price">{h.formatPrice(count * fish.price)}</span>
                 {removeButton}
             </li>
@@ -204,17 +209,26 @@ var Order = React.createClass({
 
             return prevTotal;
         },0);
+
         return (
             <div className="order-wrap">
                 <h2 className="order-title">Your order</h2>
-                <ul className="order">
+                <span>
+                <CSSTransitionGroup
+                    className="order"
+                    component="ul"
+                    transitionName="order"
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={500}
+                >
                     {orderIds.map(this.renderOrder)}
                     <li className="total">
                         <strong>Total:</strong>
                         {h.formatPrice(total)}
                     </li>
+                </CSSTransitionGroup>
+                </span>
 
-                </ul>
             </div>
         )
     }
