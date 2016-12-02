@@ -281,32 +281,9 @@ var Inventory = React.createClass({
     }
 });
 
-var StorePicker = React.createClass({
-    mixins : [History],
-    goToStore: function (event) {
-        event.preventDefault();
-        var storeId = this.refs.storeId.value;
-        this.history.pushState(null, '/store/' + storeId);
+import StorePicker from './components/StorePicker';
 
-    },
-
-    render: function () {
-        return (
-            <form className="store-selector" onSubmit={this.goToStore}>
-                <h2>Please Enter A store</h2>
-                <input type="text" ref="storeId" defaultValue={h.getFunName()} required/>
-                <input type="Submit"/>
-                </form>
-        )
-        
-    }
-});
-
-var NotFound = React.createClass({
-    render: function () {
-        return <h1>Page not found</h1>
-    }
-});
+import NotFound from './components/NotFound';
 
 var routes = (
     <Router history={createBrowserHistory()}>
