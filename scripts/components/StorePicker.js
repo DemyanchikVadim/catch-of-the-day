@@ -2,8 +2,9 @@
  * Created by vadim on 02.12.2016.
  */
 import React from 'react';
-import {Navigation} from 'react-router';
+import { History } from 'react-router';
 import h from '../helpers';
+
 
 var StorePicker = React.createClass({
     mixins : [History],
