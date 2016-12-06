@@ -8,7 +8,7 @@ import autobind from 'autobind-decorator';
 @autobind
 class Inventory extends React.Component {
     renderInventory(key) {
-        var linkState = this.props.linkState;
+        let linkState = this.props.linkState;
         return (
             <div className="fish-edit" key={key}>
                 <input type="text" valueLink={this.props.linkState('fishes.'+ key +'.name')}/>

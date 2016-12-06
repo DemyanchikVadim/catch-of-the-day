@@ -11,7 +11,7 @@ import autobind from 'autobind-decorator';
 class StorePicker extends React.Component{
     goToStore(event) {
     event.preventDefault();
-    var storeId = this.refs.storeId.value;
+    let storeId = this.refs.storeId.value;
     this.history.pushState(null, '/store/' + storeId);
 
 }

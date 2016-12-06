@@ -6,7 +6,7 @@ import StorePicker from './components/StorePicker';
 import NotFound from './components/NotFound';
 import App from './components/App';
 
-var routes = (
+let routes = (
     <Router history={createHistory()}>
         <Route path="/" component={StorePicker}  />
         <Route path="/store/:storeId" component={App}  />

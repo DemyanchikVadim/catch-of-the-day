@@ -10,7 +10,7 @@ import Catalyst from 'react-catalyst';
 import reactMixin from 'react-mixin';
 import autobind from 'autobind-decorator';
 import Rebase from 're-base';
-var base = Rebase.createClass('catch-of-the-day-4dd84.firebaseio.com');
+let base = Rebase.createClass('catch-of-the-day-4dd84.firebaseio.com');
 
 @autobind
 class App extends React.Component {
@@ -21,11 +21,12 @@ class App extends React.Component {
             order : {}
         }
     }
-    
+
+
     componentDidMount() {
         base.syncState(this.props.params.storeId + '/fishes', {context: this, state: 'fishes'});
 
-        var localStorageRef = localStorage.getItem('order-' + this.props.params.storeId);
+        let localStorageRef = localStorage.getItem('order-' + this.props.params.storeId);
 
         if (localStorageRef) {
             this.setState({
@@ -38,7 +39,8 @@ class App extends React.Component {
         localStorage.setItem('order-' + this.props.params.storeId, JSON.stringify(nextState.order));
 
     }
-    
+
+
     addToOrder(key) {
         this.state.order[key] = this.state.order[key] + 1 || 1;
         this.setState({order: this.state.order});
@@ -50,9 +52,10 @@ class App extends React.Component {
             order: this.state.order
         });
     }
-    
+
+
     addFish(fish) {
-        var timestamp = (new Date()).getTime();
+        let timestamp = (new Date()).getTime();
         this.state.fishes['fish-' + timestamp] = fish;
         this.setState({fishes: this.state.fishes});
     }

@@ -9,9 +9,9 @@ import autobind from 'autobind-decorator';
 @autobind
 class Order extends React.Component{
     renderOrder(key) {
-        var fish = this.props.fishes[key];
-        var count = this.props.order[key];
-        var removeButton = <button onClick={this.props.removeFromOrder.bind(null,key)}>&times;</button>;
+        let fish = this.props.fishes[key];
+        let count = this.props.order[key];
+        let removeButton = <button onClick={this.props.removeFromOrder.bind(null,key)}>&times;</button>;
 
         if(!fish){
             return <li key={key}>Sorry, fish no longer available! {removeButton}</li>
@@ -31,11 +31,11 @@ class Order extends React.Component{
     }
 
     render() {
-        var orderIds = Object.keys(this.props.order);
-        var total = orderIds.reduce((prevTotal, key)=>{
-            var fish = this.props.fishes[key];
-            var count = this.props.order[key];
-            var isAvailable = fish && fish.status === "available";
+        let orderIds = Object.keys(this.props.order);
+        let total = orderIds.reduce((prevTotal, key)=>{
+            let fish = this.props.fishes[key];
+            let count = this.props.order[key];
+            let isAvailable = fish && fish.status === "available";
 
             if(fish && isAvailable) {
                 return prevTotal + (count * parseInt(fish.price) || 0);

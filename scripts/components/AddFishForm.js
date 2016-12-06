@@ -8,7 +8,7 @@ import autobind from 'autobind-decorator';
 class AddFishForm extends React.Component{
     createFish(event) {
         event.preventDefault();
-        var fish = {
+        let fish = {
             name: this.refs.name.value,
             price: this.refs.price.value,
             status: this.refs.status.value,
